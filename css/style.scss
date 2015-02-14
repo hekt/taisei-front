@@ -1,0 +1,839 @@
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+@import "normalize";
+
+/*! style.css taisei.hekt.org */
+
+$oRed: rgb(222,12,33) ;
+$aBlue: rgb(89,178,239) ;
+
+/* pokemon type colors */
+$normal: rgb(180,175,165) ;
+$grass: rgb(130,185,95) ;
+$fire: rgb(255,90,70) ;
+$water: rgb(70,165,250) ;
+$fighting: rgb(190,100,75) ;
+$flying: rgb(110,150,245) ;
+$poison: rgb(180,105,150) ;
+$ground: rgb(230,190,90) ;
+$rock: rgb(200,175,105) ;
+$bug: rgb(180,190,70) ;
+$ghost: rgb(115,120,200) ;
+$electric: rgb(255,200,90) ;
+$psychic: rgb(250,115,160) ;
+$ice: rgb(125,210,245) ;
+$dragon: rgb(135,120,240) ;
+$dark: rgb(145,110,90) ;
+$steel: rgb(185,185,190) ;
+$fairy: rgb(240,170,230) ;
+
+
+body {
+  background-color: #eee ;
+  color: #333 ;
+  padding-bottom: 88px ;
+}
+
+a {
+  color: $aBlue ;
+  text-decoration: underline ;
+  
+  &:hover {
+    color: $oRed ;
+    text-decoration: none ;
+  }
+}
+
+#main-header {
+  bottom: 0 ;
+  left: 0 ;
+  position: fixed ;
+  width: 100% ;
+  z-index: 10 ;
+  box-sizing: border-box ;
+  padding: 0 22px ;
+  background-color: $normal ;
+
+  &.normal { background-color: $normal ; }
+  &.grass { background-color: $grass ; }
+  &.fire { background-color: $fire ; }
+  &.water { background-color: $water ; }
+  &.fighting { background-color: $fighting ; }
+  &.flying { background-color: $flying ; }
+  &.poison { background-color: $poison ; }
+  &.ground { background-color: $ground ; }
+  &.rock { background-color: $rock ; }
+  &.bug { background-color: $bug ; }
+  &.ghost { background-color: $ghost ; }
+  &.electric { background-color: $electric ; }
+  &.psychic { background-color: $psychic ; }
+  &.ice { background-color: $ice ; }
+  &.dragon { background-color: $dragon ; }
+  &.dark { background-color: $dark ; }
+  &.steel { background-color: $steel ; }
+  &.fairy { background-color: $fairy ; }
+
+  h1 {
+    color: rgba(255, 255, 255, .8) ;
+    font-size: 1rem ;
+    font-weight: normal ;
+    line-height: 44px ;
+    margin: 0 ;
+    padding: 0 ;
+    text-align: center ;
+  }
+}
+
+#queries {
+  position: relative ;
+  
+  .query {
+    background-color: $normal ;
+    color: #fff ;
+    line-height: 44px ;
+    height: 44px ;
+    overflow: hidden ;
+    padding: 0 22px ;
+    position: relative ;
+    &.normal { background-color: $normal ; }
+    &.grass { background-color: $grass ; }
+    &.fire { background-color: $fire ; }
+    &.water { background-color: $water ; }
+    &.fighting { background-color: $fighting ; }
+    &.flying { background-color: $flying ; }
+    &.poison { background-color: $poison ; }
+    &.ground { background-color: $ground ; }
+    &.rock { background-color: $rock ; }
+    &.bug { background-color: $bug ; }
+    &.ghost { background-color: $ghost ; }
+    &.electric { background-color: $electric ; }
+    &.psychic { background-color: $psychic ; }
+    &.ice { background-color: $ice ; }
+    &.dragon { background-color: $dragon ; }
+    &.dark { background-color: $dark ; }
+    &.steel { background-color: $steel ; }
+    &.fairy { background-color: $fairy ; }
+
+    &.new {
+      animation-name: appear;
+      animation-timing-function: ease-in-out ;
+      animation-duration: .2s;
+    }
+    
+    &.removed {
+      animation-name: disappear ;
+      animation-timing-function: ease-in-out ;
+      animation-duration: .2s ;
+      height: 0 ;
+    }
+  }
+
+  span {
+    display: inline-block ;
+    width: 3rem ;
+    cursor: default ;
+  }
+
+  .type {
+    width: 6rem ;
+  }
+
+  button, input {
+    appearance: none ;
+    background: none transparent ;
+    border: none ;
+    border-radius: 0 ;
+    box-sizing: border-box ;
+    color: inherit ;
+    font-size: inherit ;
+    height: 44px ;
+    margin: 0 ;
+    padding: 5px 22px ;
+    vertical-align: middle ;
+  }
+  
+  .remove {
+    position: absolute ;
+    right: 22px ;
+    top: 10px ;
+    font-size: .9rem ;
+    text-align: center ;
+    display: inline-block ;
+    border: 1px solid #fff ;
+    color: #fff ;
+    line-height: 14px ;
+    padding: 5px 0 ;
+    height: 24px ;
+    width: 52px ;
+    text-indent: 100% ;
+    overflow: hidden ;
+
+    &:before,
+    &:after {
+      border-top: 2px solid #fff ;
+      content: "" ;
+      width: 13px ;
+      height: 13px ;
+      position: absolute ;
+      display: inline-block ;
+      left: 14px ;
+      top: 8px ;
+      transform: rotate(45deg) ;
+    }
+    
+    &:before {
+      top: 8px ;
+      left: 23px ;
+      transform: rotate(-45deg) ;
+    }
+  
+  }
+}
+
+#options {
+  line-height: 44px ;
+  background-color: #bbb ;
+  color: #fff ;
+  padding: 0 22px ;
+  
+  ul, li {
+    margin: 0 ;
+    padding: 0 ;
+    list-style-type: none ;
+    position: relative ;
+  }
+
+  #final-form-label {
+    cursor: pointer ;
+  }
+
+  #final-form-label:before {
+    border: 1px solid #fff ;
+    content: "" ;
+    display: inline-block ;
+    position: absolute ;
+    right: 0 ;
+    top: 10px ;
+    font-size: .9rem ;
+    line-height: 14px ;
+    padding: 5px 0 ;
+    width: 52px ;
+    text-align: center ;
+    margin: 0 ;
+    box-sizing: border-box ;
+    height: 24px ;
+  }
+
+  #final-form-label:after {
+    content: "" ;
+    display: inline-block ;
+    position: absolute ;
+    border: 0 solid #fff ;
+    border-width: 0 3px 3px 0 ;
+    transform: rotate(45deg) ;
+    width: 7px ;
+    height: 10px ;
+    top: 13px ;
+    right: 22px ;
+    opacity: 0 ;
+  }
+
+  #final-form-checkbox:checked + #final-form-label:after {
+    transition: none ;
+    opacity: 1 ;
+  }
+
+  #final-form-checkbox {
+    border: 1px solid #fff ;
+    display: inline-block ;
+    position: absolute ;
+    right: 0 ;
+    top: 10px ;
+    font-size: .9rem ;
+    line-height: 14px ;
+    padding: 5px 0 ;
+    width: 52px ;
+    text-align: center ;
+    margin: 0 ;
+    box-sizing: border-box ;
+    height: 24px ;
+    cursor: pointer ;
+    display: none ;
+
+    &:before {
+      content: "" ;
+      display: inline-block ;
+      position: absolute ;
+      border: 0 solid #fff ;
+      border-width: 0 3px 3px 0 ;
+      transform: rotate(45deg) ;
+      width: 7px ;
+      height: 10px ;
+      top: 2px ;
+      left: 19px ;
+      opacity: 0 ;
+    }
+
+    &:checked {
+      &:before {
+        transition: none ;
+        opacity: 1 ;
+      }
+    }
+  }
+}
+
+#query-form {
+  background-color: $oRed ;
+  background-image: linear-gradient(to right, $oRed, $aBlue) ;
+  padding-top: 2px ;
+  bottom: 44px ;
+  left: 0 ;
+  position: fixed ;
+  width: 100% ;
+  display: -webkit-flex ;
+  display: -moz-flex ;
+  display: -ms-flex ;
+  display: -o-flex ;
+  display: flex;
+  z-index: 10 ;
+
+  select, input {
+    appearance: none ;
+    background: none transparent ;
+    border: none ;
+    border-radius: 0 ;
+    box-sizing: border-box ;
+    color: inherit ;
+    font-size: inherit ;
+    height: 44px ;
+    margin: 0 ;
+    outline: none ;
+    padding: 0 ;
+    vertical-align: middle ;
+    width: 100% ;
+  }
+
+  .select-wrapper, .button-wrapper {
+    background-color: #eee ;
+    font-size: 1rem ;
+    line-height: 34px ;
+    text-align: left ;
+    flex-grow: 1 ;
+    border-right: 1px solid #ddd ;
+
+    .selected {
+      display: inline-block ;
+      width: 100% ;
+      line-height: 44px ;
+      padding: 0 ;
+      box-sizing: border-box ;
+      cursor: pointer ;
+      text-align: center ;
+      user-select: none ;
+
+      &.focus {
+        font-weight: bold ;
+        color: #333 ;
+      }
+    }
+    
+    ul {
+      width: 100% ;
+      position: absolute ;
+      bottom: 46px ;
+      left: 0 ;
+      right: 0 ;
+      margin: 0 ;
+      padding: 0 ;
+      background-color: #eee ;
+      display: -webkit-flex ;
+      display: -moz-flex ;
+      display: -ms-flex ;
+      display: -o-flex ;
+      display: flex;
+      flex-wrap: wrap ;
+
+      li {
+        list-style-type: none ;
+        line-height: 44px ;
+        margin: 1px 1px 0 0 ;
+        padding: 0 11px ;
+        width: 5em ;
+        flex-grow: 1 ;
+        background-color: #ddd ;
+        cursor: pointer ;
+      }
+    }
+  }
+
+  .button-wrapper {
+    background-color: #ddd ;
+    text-align: center ;
+    border-right: none ;
+  }
+}
+
+#results {
+  background-color: #fff ;
+  padding: 0 ;
+  margin: 0 ;
+
+  #results-wrap {
+    display: -webkit-flex ;
+    display: -moz-flex ;
+    display: -ms-flex ;
+    display: -o-flex ;
+    display: flex;
+    flex-wrap: wrap ;
+    margin: 0 ;
+    padding: 0 ;
+  }
+
+  .loading {
+    position: relative ;
+    width: auto ;
+    margin: 0 auto ;
+    padding: 44px 0 ;
+    text-align: center ;
+    background-color: #fff ;
+
+    h1 {
+      color: #eee ;
+      text-transform: uppercase ;
+      margin: 0 ;
+      animation: blink .6s ease-in-out 0 infinite alternate ;
+    }
+  }
+
+  .information, .empty, .error {
+    margin: 0 auto ;
+    max-width: 40em ;
+    padding: 44px ;
+    border-bottom: 1px solid #ddd ;
+    color: #666 ;
+
+    h1 {
+      margin: 0 ;
+      font-weight: normal ;
+      font-size: 1.2rem ;
+      color: #333 ;
+    }
+
+    textarea {
+      background-color: #666 ;
+      color: #eee ;
+      width: 100% ;
+      box-sizing: border-box ;
+      padding: 1em ;
+      resize: vertical ;
+      outline: none ;
+      font-family: monospace ;
+    }
+  }
+  
+  .result {
+    border-bottom: 1px solid #ddd ;
+    padding: 22px 22px ;
+    position: relative ;
+    overflow: hidden ;
+    width: 14em ;
+    flex-grow: 1 ;
+    flex-basis: 1 ;
+
+    h1 {
+      font-size: 1.1rem ;
+      font-weight: normal ;
+      position: relative ;
+      z-index: 2 ;
+      line-height: 22px ;
+      margin: 0 0 11px 0 ;
+      color: #333 ;
+
+      a {
+        color: inherit ;
+        text-decoration: inherit ;
+
+        &:hover {
+          color: #888 ;
+        }
+      }
+
+      .ability {
+        color: #888 ;
+        font-size: .8em ;
+
+        &:before {
+          content: "(" ;
+        }
+        &:after {
+          content: ")" ;
+        }
+      }
+    }
+
+    dl {
+      margin: 0 ;
+      padding: 0 ;
+    }
+    
+    dt {
+      display: none ;
+    }
+
+    dd {
+      z-index: 2 ;
+      position: relative ;
+      line-height: 22px ;
+      margin: 0 ;
+      font-size: .95rem ;
+    }
+
+    dd.type1, dd.type2 {
+      display: inline-block ;
+      padding: 4px 8px ;
+      margin-left: 2px ;
+      color: #fff ;
+
+      &.normal { background-color: $normal ; }
+      &.grass { background-color: $grass ; }
+      &.fire { background-color: $fire ; }
+      &.water { background-color: $water ; }
+      &.fighting { background-color: $fighting ; }
+      &.flying { background-color: $flying ; }
+      &.poison { background-color: $poison ; }
+      &.ground { background-color: $ground ; }
+      &.rock { background-color: $rock ; }
+      &.bug { background-color: $bug ; }
+      &.ghost { background-color: $ghost ; }
+      &.electric { background-color: $electric ; }
+      &.psychic { background-color: $psychic ; }
+      &.ice { background-color: $ice ; }
+      &.dragon { background-color: $dragon ; }
+      &.dark { background-color: $dark ; }
+      &.steel { background-color: $steel ; }
+      &.fairy { background-color: $fairy ; }
+    }
+
+    dd.type1 {
+      margin-left: 22px ;
+    }
+
+    dd.number {
+      position: absolute ;
+      right: 22px ;
+      bottom: -22px ;
+      font-size: 100px ;
+      font-weight: bold ;
+      color: #f4f4f4 ;
+      display: inline-block ;
+      z-index: 1 ;
+      margin: 0 ;
+      line-height: 1 ;
+      cursor: default ;
+    }
+  }
+}
+
+#setting {
+  padding: 22px ;
+  margin: 0 auto ;
+  max-width: 40em ;
+
+  & > h1 {
+    margin: 44px 0 ;
+    padding: 0 0 44px 0 ;
+    border-bottom: 1px solid #ddd ;
+    line-height: 22px ;
+    font-size: 1.2rem ;
+  }
+
+  input {
+    width: 100% ;
+    margin: 0 ;
+    padding: 11px 11px ;
+    height: 44px ;
+    line-height: 22px ;
+    border: 1px solid #ddd ;
+    background-color: #fff ;
+    font-family: monospace ;
+    color: #666 ;
+    font-size: 1.2rem ;
+    box-sizing: border-box ;
+    border-radius: 0 ;
+    appearance: none ;
+    vertical-align: middle ;
+
+    &:focus {
+      outline: none ;
+      border-color: $aBlue ;
+    }
+  }
+
+  section {
+    margin: 22px 0 ;
+
+    h1 {
+      font-weight: normal ;
+      font-size: 1rem ;
+      margin: 22px 0 ;
+      padding: 11px 11px ;
+      border-left: 11px solid $aBlue ;
+      line-height: 1 ;
+    }
+
+    h2 {
+      font-size: 1rem ;
+      margin: 22px 0 ;
+      padding: 5px 11px ;
+      border-left: 5px solid $oRed ;
+      line-height: 1 ;
+      font-weight: normal ;
+    }
+  }
+
+  #reference-url-setting {
+    code {
+      font-family: monospace ;
+      font-size: 1.2rem ;
+      line-height: 2 ;
+    }
+
+    #reference-url-field-wrap {
+      margin: 0 ;
+    }
+
+    #reference-url-example {
+      font-family: monospace ;
+      padding: 11px ;
+      line-height: 22px ;
+      color: #666 ;
+      font-size: 1.2rem ;
+      margin: 0 ;
+      background-color: #ddd ;
+      width: 100% ;
+      box-sizing: border-box ;
+      word-wrap: break-word ;
+      word-break: break-all ;
+      cursor: default ;
+      min-height: 44px ;
+    }
+
+    .presets {
+      margin: 1em 0 ;
+      padding: 0 ;
+      
+      li {
+        cursor: pointer ;
+        display: inline-block ;
+        background-color: #ddd ;
+        line-height: 44px ;
+        padding: 0 22px ;
+        margin: 0 11px 11px 0 ;
+
+        &:hover {
+          background-color: $aBlue ;
+          color: #fff ;
+        }
+      }
+    }
+  }
+
+  #buttons {
+    text-align: right ;
+    margin-top: 44px ;
+    padding-top: 44px ;
+    border-top: 1px solid #ddd ;
+
+    a:hover {
+      background-color: $aBlue ;
+      color: #fff ;
+    }
+
+    a:active {
+      background-color: $oRed ;
+      color: #fff ;
+    }
+
+    li {
+      list-style-type: none ;
+      display: inline-block ;
+
+      a {
+        display: inline-block ;
+        padding: 11px 22px ;
+        background-color: #ddd ;
+        margin: 0 0 0 11px ;
+        color: inherit ;
+        text-decoration: none ;
+      }
+    }
+  }
+}
+
+#foot-navi {
+  padding: 22px 0 ;
+
+  ul {
+    margin: 0 ;
+    padding: 0 ;
+    text-align: center ;
+    display: -webkit-flex ;
+    display: -moz-flex ;
+    display: -ms-flex ;
+    display: -o-flex ;
+    display: flex;
+  }
+
+  li {
+    margin: 0 ;
+    padding: 0 ;
+    list-style-type: none ;
+    display: block ;
+    flex: 1 ;
+    line-height: 44px ;
+
+    a {
+      color: #666 ;
+      text-decoration: none ;
+
+      &:hover {
+        color: #888 ;
+      }
+    }
+  }
+}
+
+@media (min-width: 640px) {
+
+  body {
+    padding-bottom: 0 ;
+  }
+  
+  #app {
+    padding: 0 0 0 320px ;
+  }
+
+  #setting {
+    position: relative ;
+    left: -160px ;
+  }
+
+  #main-header {
+    width: 320px ;
+    overflow: hidden ;
+    height: 89px ;
+    
+    h1 {
+      line-height: 1 ;
+      font-size: 2rem ;
+      position: absolute ;
+      font-weight: bold ;
+      bottom: -.3rem ;
+      right: 0rem ;
+      letter-spacing: -.2rem ;
+      color: rgba(255, 255, 255 , .5) ;
+    }
+  }
+
+  #queries {
+    width: 320px ;
+    position: fixed ;
+    left: 0 ;
+    top: 0 ;
+
+    #query-form {
+      position: static ;
+      width: 320px ;
+      padding-top: 0 ;
+      padding-bottom: 2px ;
+
+      ul {
+        top: 46px ;
+        bottom: auto ;
+        z-index: 10 ;
+
+        li {
+          margin: 0 1px 1px 0 ;
+        }
+      }
+    }
+  }
+
+  #results {
+    padding: 0 ;
+
+    .information, .empty, .error {
+      margin-left: 0 ;
+      margin-right: 0 ;
+    }
+  }
+
+}
+
+.android-browser {
+  #query-form {
+    background-image: -webkit-linear-gradient(left, $oRed 0%, $aBlue 100%) ;
+    
+    .select-wrapper, .button-wrapper {
+      display: inline-block ;
+      margin: 0 ;
+      padding: 0 ;
+      box-sizing: border-box ;
+      width: 20% ;
+
+      &#type-field-wrapper {
+        width: 40% ;
+      }
+
+      &#add-button-wrapper {
+        position: relative ;
+        top: -1px ;
+      }
+      li {
+        display: inline-block ;
+        width: auto ;
+      }
+    }
+  }
+
+  #results {
+    .result {
+      display: inline-block ;
+    }
+  }
+
+  #foot-navi {
+    li {
+      display: inline-block ;
+      width: 33.3% ;
+    }
+  }
+}
+
+@keyframes appear {
+  0% { height: 0 }
+  100% { height: 44px ; }
+}
+@-webkit-keyframes appear {
+  0% { height: 0 }
+  100% { height: 44px ; }
+}
+
+@keyframes disappear {
+  0% { height: 44px ; }
+  100% { height: 0 ; }
+}
+@-webkit-keyframes disappear {
+  0% { height: 44px ; }
+  100% { height: 0 ; }
+}
+
+@keyframes blink {
+  0% { opacity: 1 ; }
+  100% {opacity: 0 ; }
+}
+@-webkit-keyframes blink {
+  0% { opacity: 1 ; }
+  100% {opacity: 0 ; }
+}

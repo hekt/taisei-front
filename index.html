@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="タイプ耐性からポケモンを検索するツール。ORAS 対応。" name="description">
+    <base href="//taisei.hekt.org/">
+    <link href="css/style.css" rel="stylesheet">
+    <script defer src="js/vue.min.js"></script>
+    <script defer src="js/main.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-1886227-7', 'auto');
+      ga('require', 'linkid', 'linkid.js');
+      ga('send', 'pageview');
+    </script>
+    <title>ポケモン耐性検索</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="{{selectedType}}" data-v-show="state.mode === 'search'" data-v-with="state: state" id="main-header">
+        <h1 id="main-title">ポケモン耐性検索</h1>
+      </header>
+      <div data-v-show="state.mode === 'search'" data-v-with="state: state" id="queries"></div>
+      <div data-v-show="state.mode === 'search'" data-v-with="state: state" id="results">
+        <div class="information">
+          <h1>ポケモン耐性検索</h1>
+          <p>JavaScript が正常に動作していないようです。再読み込みしても改善しない場合、Web ブラウザが動作対象外である可能性があります。</p>
+          <p>
+            もし最新のブラウザを使っているのにもかかわらずこの画面が表示される場合、
+            <a href="//twitter.com/hekt">@hekt</a>
+            までお知らせ下さい。
+          </p>
+          <p>
+            <a href="//taisei.hekt.org/old/">以前の版</a>
+            を使うこともできます。XY とついていますが、検索結果は最新版と同じものです。
+          </p>
+        </div>
+      </div>
+      <div data-v-show="state.mode === 'setting'" data-v-with="state: state" id="setting"></div>
+      <div data-v-show="state.mode === 'search'" data-v-with="state: state" id="foot-navi">
+        <ul><li class="top">
+            <a data-v-on="click: scrollToTop" href="#">トップ</a>
+          </li><li class="home">
+            <a href="//taisei.hekt.org/">ホーム</a>
+          </li><li class="setting">
+            <a data-v-on="click: showSettingView" href="setting/">設定</a>
+          </li></ul>
+      </div>
+    </div>
+    <script id="queries-template" type="text/x-template">
+      <form id="query-form"><div class="select-wrapper" id="type-field-wrapper"><span class="selected" data-kind="type" data-v-class="focus: shows.typeList" data-v-on="click: onClickLabel, touchstart: onTouchLabel, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="{{selected.type}}">
+            {{selected.type | toJaType}}
+          </span><ul class="types" data-v-show="shows.typeList"><li class="{{value}}" data-kind="type" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-v-repeat="typeOptions" data-value="{{value}}">
+              {{text}}
+            </li></ul>
+        </div><div class="select-wrapper" id="threshold-field-wrapper"><span class="selected" data-kind="threshold" data-v-class="focus: shows.thresholdList" data-v-on="click: onClickLabel, touchstart: onTouchLabel, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="{{selected.threshold}}">
+            {{selected.threshold | toJaThreshold}}
+          </span><ul class="thresholds" data-v-show="shows.thresholdList"><li data-kind="threshold" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="4">
+              4倍
+            </li><li data-kind="threshold" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="2">
+              2倍
+            </li><li data-kind="threshold" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="1">
+              等倍
+            </li><li data-kind="threshold" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="0.5">
+              半減
+            </li><li data-kind="threshold" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="0.25">
+              1/4
+            </li><li data-kind="threshold" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="0">
+              無効
+            </li></ul>
+        </div><div class="select-wrapper" id="comparator-field-wrapper"><span class="selected" data-kind="comparator" data-v-class="focus: shows.comparatorList" data-v-on="click: onClickLabel, touchstart: onTouchLabel, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="{{selected.comparator}}">
+            {{selected.comparator | toJaComparator}}
+          </span><ul class="comparators" data-v-show="shows.comparatorList"><li data-kind="comparator" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="lte">
+              以下
+            </li><li data-kind="comparator" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="gte">
+              以上
+            </li><li data-kind="comparator" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="eq">
+              のみ
+            </li><li data-kind="comparator" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="lt">
+              未満
+            </li><li data-kind="comparator" data-v-on="click: onClickListItem, touchstart: onTouchListItem, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-value="gt">
+              超
+            </li></ul>
+        </div><div class="button-wrapper" id="add-button-wrapper">
+          <input class="add-button" data-v-on="click: onClickAdd, touchstart: onTouchAdd, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" type="button" value="{{formButtonText}}">
+        </div></form>
+      <div id="options"><ul><li>
+            <input data-v-model="state.options.finalForm" id="final-form-checkbox" type="checkbox">
+            <label data-v-on="click: onClickCheckbox, touchstart: onTouchCheckbox, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" id="final-form-label">最終進化形のみ</label>
+          </li></ul></div>
+      <div class="new query {{type}}" data-comparator-value="{{comparator}}" data-threshold-value="{{threshold}}" data-type-value="{{type}}" data-v-on="click: onClickQuery, touchstart: onTouchQuery, touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" data-v-repeat="state.queries">
+        <span class="type">{{type | toJaType}}</span>
+        <span class="threshold">{{threshold | toJaThreshold}}</span>
+        <span class="comparator">{{comparator | toJaComparator}}</span>
+        <button class="remove" data-v-on="click: onClickRemove(this, $event), touchstart: onTouchRemove(this, $event), touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove" value="削除"></button>
+      </div>
+    </script>
+    <script id="results-template" type="text/x-template">
+      <div class="information" data-v-show="shows.information &amp;&amp; !loading">
+        <h1>ポケモン耐性検索</h1>
+        <p>タイプ耐性からポケモンを検索するツールです。第六世代 (XY/ORAS) のポケモンを対象に検索します。</p>
+        <p>
+          なにかありましたら
+          <a href="//twitter.com/hekt">@hekt</a>
+          までお願いします。
+        </p>
+      </div>
+      <div class="loading" data-v-show="loading">
+        <h1>Loading</h1>
+      </div>
+      <div class="empty" data-v-show="shows.emptyResult &amp;&amp; !loading">
+        <h1>見つかりませんでした</h1>
+      </div>
+      <div class="error" data-v-show="shows.error">
+        <h1>{{errorMessage}}</h1>
+        <p>
+          なんか失敗しました。なんどか試してみてダメなら下記内容を添えて
+          <a href="//twitter.com/hekt">@hekt</a>
+          まで連絡お願いします。
+        </p>
+        <textarea data-v-model="errorLog" readonly rows="4"></textarea>
+      </div>
+      <div data-v-show="!loading" id="results-wrap">
+        <div class="result" data-v-repeat="list">
+          <h1 class="name">
+            <a href="{{referenceUrl}}">{{name}}</a>
+            <span class="ability" data-v-if="ability">{{ability}}</span>
+          </h1>
+          <dl><dt class="number">ナンバー</dt><dd class="number">{{number}}</dd><dt class="type1">タイプ1</dt><dd class="type1 {{type1 | lowercase}}" data-value="{{type1}}">{{type1 | toJaType}}</dd><dt class="type2">タイプ2</dt><dd class="type2 {{type2 | lowercase}}" data-value="{{type2}}">{{type2 | toJaType}}</dd></dl>
+        </div>
+      </div>
+    </script>
+    <script id="setting-template" type="text/x-template">
+      <h1>設定</h1>
+      <section id="reference-url-setting">
+        <h1>図鑑サイト URL</h1><p id="reference-url-field-wrap">
+          <input data-v-model="fields.referenceUrl" id="reference-url-field" type="text">
+        </p><p id="reference-url-example">{{referenceExample}}</p>
+        <p>検索結果からリンクする図鑑サイトのURLを設定します。以下の文字列はそれぞれ対応する文字列に置き換えられます。</p>
+        <dl>
+          <dt>
+            <code>{number}</code>
+          </dt>
+          <dd>全国図鑑番号</dd>
+          <dt>
+            <code>{number3}</code>
+          </dt>
+          <dd>全国図鑑番号 (3桁ゼロ詰め)</dd>
+          <dt>
+            <code>{name}</code>
+          </dt>
+          <dd>ポケモンの名前。独自の名前を使っている場合があります (例: ロトム水)</dd>
+          <dt>
+            <code>{oname}</code>
+          </dt>
+          <dd>フォルムチェンジやメガシンカなどを剥がした元々の名前</dd>
+        </dl>
+        <h2>プリセット</h2>
+        <ul class="presets"><li data-preset-value="http://www.pokemon.co.jp/zukan/pokemon/{number3}.html" data-v-on="click: onClickPreset">ポケモンずかん</li><li data-preset-value="http://yakkun.com/xy/zukan/n{number}" data-v-on="click: onClickPreset">ポケモン徹底攻略</li><li data-preset-value="http://pente.koro-pokemon.com/zukan/{number3}.shtml" data-v-on="click: onClickPreset">ポケモン王国</li><li data-preset-value="http://wiki.ポケモン.com/wiki/{oname}" data-v-on="click: onClickPreset">ポケモンWiki</li></ul>
+      </section>
+      <ul id="buttons"><li>
+          <a data-v-on="click: saveAndCloseSettingView" href="#">保存</a>
+        </li><li>
+          <a data-v-on="click: closeSettingView" href="#">キャンセル</a>
+        </li></ul>
+    </script>
+  </body>
+</html>
