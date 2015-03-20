@@ -75,6 +75,8 @@
     };
   })();
 
+
+  Vue.config.prefix = "data-v-";
   
   Vue.filter("toJaType", toJaType);
   Vue.filter("toJaThreshold", toJaThreshold);
@@ -220,9 +222,6 @@
       this.$on("typeChanged", function(type) {
         this.$broadcast("typeChanged", type);
       });
-
-      // some browser doesn't fire 'popState' on page's load
-      this.onPopState({});
     }
   }); // app
 
@@ -232,7 +231,6 @@
   //
 
   window.addEventListener("popstate", function(e) {
-    if (!e.state && !popped) return;
     app.onPopState(e);
   });
 
@@ -560,6 +558,9 @@
         }
       }
     }); // settingViewModel
+
+    // some browser doesn't fire 'popState' on page's load
+    if (!popped) app.onPopState({});
   }); // DOMContentLoaded
 
   
