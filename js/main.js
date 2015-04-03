@@ -231,7 +231,7 @@
   //
 
   window.addEventListener("popstate", function(e) {
-    app.onPopState(e);
+    Vue.nextTick(app.onPopState.bind(app, e));
   });
 
   document.addEventListener("DOMContentLoaded", function() {
