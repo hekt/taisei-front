@@ -48,8 +48,6 @@
     }
 
     function start(e, func, thisObj) {
-      if (isAndroidBrowser) return;
-
       target = e.target;
       callback = {
         func: func,
@@ -362,31 +360,37 @@
           this.$dispatch("toggleFinalFormCheckbox");
         },
         onClickQuery: function(e) {
+          if (isAndroidBrowser) return;
           e.preventDefault();
           e.stopPropagation();
           this.onQueryCallback(e);
         },
         onClickCheckbox: function(e) {
+          if (isAndroidBrowser) return;
           e.preventDefault();
           e.stopPropagation();
           this.onCheckboxCallback();
         },
         onClickLabel: function(e) {
+          if (isAndroidBrowser) return;
           e.preventDefault();
           e.stopPropagation();
           this.onLabelCallback(e);
         },
         onClickListItem: function(e) {
+          if (isAndroidBrowser) return;
           e.preventDefault();
           e.stopPropagation();
           this.onListItemCallback(e);
         },
         onClickRemove: function(query, e) {
+          if (isAndroidBrowser) return;
           e.preventDefault();
           e.stopPropagation();
           this.onRemoveCallback(query, e);
         },
         onClickAdd: function(e) {
+          if (isAndroidBrowser) return;
           e.preventDefault();
           e.stopPropagation();
           this.onAddCallback(e);
@@ -398,7 +402,6 @@
           touchEvent.start(e, this.onCheckboxCallback, this, e);
         },
         onTouchLabel: function(e) {
-          if (isAndroidBrowser) return;
           touchEvent.start(e, this.onLabelCallback, this, e);
         },
         onTouchListItem: function(e) {
