@@ -1,10 +1,7 @@
 !!! 5
 
 - vuejsPath = "js/vue.js"
-- baseUrl = "//localhost:52909/"
-- baseUrl = "//192.168.1.3:52909/"
 - vuejsPath = "js/vue.min.js"
-- baseUrl = "//taisei.hekt.org/"
 
 - ontouches = "touchend: onTouchEnd, touchcancel: onTouchCancel, touchmove: onTouchMove"
 - types = ["normal", "fire", "water", "electric", "grass", "psychic",
@@ -33,10 +30,9 @@
     %meta(charset="utf-8")
     %meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
     %meta(name="description" content="タイプ耐性からポケモンを検索するツール。ORAS 対応。")
-    %base(href="#{baseUrl}")
-    %link(rel="stylesheet" href="css/style.css")
-    %script(src="#{vuejsPath}" defer)
-    %script(src="js/main.js" defer)
+    %link(rel="stylesheet" href="/css/style.css")
+    %script(src="/#{vuejsPath}" defer)
+    %script(src="/js/main.js" defer)
     :javascript
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -69,9 +65,9 @@
           %li.top>
             %a(href="#" data-v-on="click: scrollToTop") トップ
           %li.home>
-            %a(href="#{baseUrl}") ホーム
+            %a(href="/") ホーム
           %li.setting>
-            %a(href="setting/" data-v-on="click: showSettingView") 設定
+            %a(href="/setting/" data-v-on="click: showSettingView") 設定
 
     -#
     -# templates
