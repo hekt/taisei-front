@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta content="タイプ耐性からポケモンを検索するツール。ORAS 対応。" name="description">
-    <base href="//taisei.hekt.org/">
+    <base href="//localhost:8888/">
     <link href="css/style.css" rel="stylesheet">
     <script defer src="js/vue.min.js"></script>
     <script defer src="js/main.js"></script>
@@ -136,6 +136,13 @@
     </script>
     <script id="setting-template" type="text/x-template">
       <h1>設定</h1>
+      <section id="alt-api-setting">
+        <h1>サン/ムーン版利用設定</h1>
+        <p>
+          <input data-v-model="fields.altUrlEnabled" type="checkbox">
+          サン/ムーン版のデータを使う
+        </p>
+      </section>
       <section id="reference-url-setting">
         <h1>図鑑サイト URL</h1><p id="reference-url-field-wrap">
           <input data-v-model="fields.referenceUrl" id="reference-url-field" type="text">

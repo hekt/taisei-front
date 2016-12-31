@@ -4,6 +4,7 @@
   var ANIMATION_TIME = 250;
   var BASE_URL;
   var REQUEST_URL;
+  var ALT_REQUEST_URL = "https://9ej8ulmei9.execute-api.ap-northeast-1.amazonaws.com/prod/taisei-api?";
 
   if (location.hostname === "localhost") {
     BASE_URL = "http://" + location.host + "/";
@@ -136,8 +137,11 @@
             if (xhr.status === 200) {
               try {
                 var json = JSON.parse(xhr.responseText);
-                this.$broadcast("requestCompleted",
-                                json, this.storedOptions.referenceUrlFormat);
+                this.$broadcast(
+                  "requestCompleted",
+                  json,
+                  this.storedOptions.referenceUrlFormat
+                );
               } catch (e) {
                 this.$broadcast("requestFailed", "JSON Parse Error", qs);
               }
@@ -146,7 +150,12 @@
                               "Request Failed (" + xhr.status + ")", qs);
             }
           }.bind(this);
-          xhr.open("GET", REQUEST_URL + qs, true);
+
+          var url = REQUEST_URL;
+          if (this.storedOptions.altUrlEnabled) {
+            url = ALT_REQUEST_URL;
+          }
+          xhr.open("GET", url + qs, true);
           xhr.send(null);
         }
       },
@@ -163,7 +172,8 @@
           storedOpts = JSON.stringify({referenceUrlFormat: oldOpt});
       }
       this.storedOptions = storedOpts ? JSON.parse(storedOpts) : {
-        referenceUrlFormat: "http://yakkun.com/xy/zukan/n{number}"
+        referenceUrlFormat: "http://yakkun.com/xy/zukan/n{number}",
+        altUrlEnabled: false,
       };
       
       // watch
@@ -510,7 +520,8 @@
       data: {
         referenceExample: "",
         fields: {
-          referenceUrl: ""
+          referenceUrl: "",
+          altUrlEnabled: false,
         }
       },
       created: function() {
@@ -520,6 +531,7 @@
         }.bind(this);
 
         // initialize
+        this.fields.altUrlEnabled = app.storedOptions.altUrlEnabled;
         this.fields.referenceUrl = app.storedOptions.referenceUrlFormat;
         updateReferenceExample(this.fields.referenceUrl);
 
@@ -529,7 +541,8 @@
       methods: {
         saveAndCloseSettingView: function(e) {
           this.$dispatch("changeStoredOptions", {
-            referenceUrlFormat: this.fields.referenceUrl
+            referenceUrlFormat: this.fields.referenceUrl,
+            altUrlEnabled: this.fields.altUrlEnabled
           });
           this.$dispatch("changeMode", "search");
           e.preventDefault();
